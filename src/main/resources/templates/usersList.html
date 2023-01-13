@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form th:align="right" th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+<div align="center">
+    <h3>Users</h3>
+    <br>
+    <table>
+        <tr><th>ID</th><th>Name</th></tr>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getUsername()}"></td>
+                <td>
+                    <form action="#" th:action="@{'/admin/updateUser/{id}'(id=${user.getId()})}" th:method="PATCH" >
+                        <button type="submit" class="btn">
+                            Update
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form action="#" th:action="@{'/admin/deleteUser/{id}'(id=${user.getId()})}" th:method="DELETE" >
+                        <button type="submit" class="btn">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <br>
+    <input type = "button" value = "Add" onclick="window.location.href = 'newUser'">
+</div>
+</body>
+</html>

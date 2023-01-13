@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+</head>
+<body>
+<form th:align="right" th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+<div align="center">
+<form th:method="POST" th:action="@{/admin/saveUser}" th:object="${user}">
+    <table>
+        <input hidden="hidden" th:field="*{id}" id="id"/>
+        <tr>
+            <td>Name</td>
+            <td><input th:field="*{username}" id="username"/></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input th:field="*{password}" id="password"/></td>
+        </tr>
+        <tr>
+            <td>Roles:</td>
+            <td><input type="checkbox" id="roles" th:each="role : ${roles}" th:text="${role.name}" th:value="${role.id}" th:field="*{roles}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+</div>
+</body>
+</html>

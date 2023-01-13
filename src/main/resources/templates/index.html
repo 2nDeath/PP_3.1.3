@@ -4,6 +4,9 @@
     <title>Spring Security Example</title>
 </head>
 <body>
+<form sec:authorize="isAuthenticated()" th:align="right" th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
 <h1>Welcome to Index PAGE!</h1>
 
 
