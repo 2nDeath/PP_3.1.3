@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Set;
 
@@ -14,10 +16,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
-    @Column(name = "username")
+
+    @NotEmpty(message = "must not be empty")
+    @Column(name = "username", unique = true)
     private String username;
+
+    @NotEmpty(message = "must not be empty")
     @Column(name = "password")
     private String password;
+
+    @NotNull(message = "1 role at least")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",

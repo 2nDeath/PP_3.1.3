@@ -36,7 +36,9 @@
         </th:block>
     </table>
     <br>
-    <input type = "button" value = "Add" onclick="window.location.href = 'newUser'">
+    <form th:align="center" th:method="GET" th:action="@{/admin/newUser}">
+        <input type="submit" value="Add">
+    </form>
 </div>
 </body>
 </html>

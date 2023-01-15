@@ -13,18 +13,28 @@
         <tr>
             <td>Name</td>
             <td><input th:field="*{username}" id="username"/></td>
+            <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
         </tr>
         <tr>
             <td>Password</td>
             <td><input th:field="*{password}" id="password"/></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
         </tr>
         <tr>
             <td>Roles:</td>
-            <td><input type="checkbox" id="roles" th:each="role : ${roles}" th:text="${role.name}" th:value="${role.id}" th:field="*{roles}"></td>
+            <td>
+                <select name="roles" multiple>
+                    <option th:each="role : ${roles}"
+                            th:text="${role.name}"
+                            th:value="${role.id}"
+                            th:field="*{roles}">
+                    </option>
+                </select>
+            </td>
+            <td th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">Name Error</td>
         </tr>
-        <tr>
-            <td><input type="submit" value="Submit"/></td>
-        </tr>
+        <tr><td><input  align="center" type="submit" value="Submit"/></td></tr>
+
     </table>
 </form>
 </div>
