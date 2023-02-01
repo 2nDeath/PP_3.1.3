@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
+@NamedEntityGraph(name = "GroupInfo.detail",
+        attributeNodes = @NamedAttributeNode("roles"))
 @Table(name = "users")
 public class User implements UserDetails {
     @Column(name = "id")

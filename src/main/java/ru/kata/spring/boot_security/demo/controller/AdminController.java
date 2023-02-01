@@ -19,10 +19,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	@Autowired
+
 	private UserService uService;
-	@Autowired
+
 	private RoleRepository roleRepository;
+
+	@Autowired
+	public AdminController(UserService userService, RoleRepository roleRepository) {
+		this.uService = userService;
+		this.roleRepository = roleRepository;
+	}
 
 	@GetMapping(value = "/allUsers")
 	public String usersList(ModelMap model) {

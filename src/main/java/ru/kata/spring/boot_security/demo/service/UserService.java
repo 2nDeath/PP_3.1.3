@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,17 +14,25 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
-public class UserService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+public class UserService implements UserDetailsService, IUserService {
 
+    private UserRepository userRepository;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Lazy
+    @Autowired
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public User getUser(long n) {
         User user = userRepository.getById(n);
         return user;
@@ -40,6 +49,7 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
